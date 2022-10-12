@@ -1,3 +1,4 @@
+//Стандартное об-ние ф-ции с ключ. словом, именем, параметром и блоком кода
 function quack(num) {
     for (let i = 0; i < num; i++) {
         console.log("Quack!");
@@ -6,6 +7,7 @@ function quack(num) {
 
 quack(3);
 
+//Функц-ное выражение
 let fly = function (num) {
     for (let i = 0; i < num; i++) {
         console.log("Flying!");
@@ -14,6 +16,7 @@ let fly = function (num) {
 
 fly(3);
 
+//Осн. принципы функций на примере игры в "наперстки"
 let winner = function () { alert("WINNER!"); };
 let loser = function () { alert("LOSER!"); };
 
@@ -34,6 +37,7 @@ a = b;
 b = c;
 a();
 
+//массив пассажиров
 let passengers = [
     {name: "Jane", paid: true},
     {name: "Evel", paid: true},
@@ -41,6 +45,7 @@ let passengers = [
     {name: "John", paid: true}
 ];
 
+//самостоятельные функции черного списка, оплаченного билета и списка пассажиров
 let blackList = function (passengers) {
     let count = [];
     for (let i = 0; i < passengers.length; i++) {
@@ -90,6 +95,7 @@ blackList(passengers);
 payPass(passengers);
 allPass(passengers);
 
+//Предложенные тогоже
 function checkPaid(passengers) {
     for (let i = 0; i < passengers.length; i++) {
         if (!passengers[i].paid) {
@@ -116,6 +122,7 @@ function printPassengers(passengers) {
     return true;
 }
 
+//Пример передачи функции другой функции
 function sayIt(translator) {
     let phrase = translator("Hello");
     alert(phrase);
@@ -128,6 +135,7 @@ function hawaiianTranslator(word) {
 
 sayIt(hawaiianTranslator);
 
+//Как нужно было сделать с учетом последнего
 function processPassengers(passengers, testFunction) {
     for (let i = 0; i < passengers.length; i++) {
         if (testFunction(passengers[i])) {
@@ -155,6 +163,7 @@ if (!allPaid) {
     console.log("The plane can't take off: not everyone has paid.");
 }
 
+//Вывести имя и инф-цию об оплате
 function printPassenger(passenger) {
     let msg = passenger.name;
     if (passenger.paid === true) {
@@ -168,6 +177,7 @@ function printPassenger(passenger) {
 
 processPassengers(passengers, printPassenger);
 
+//Проверка на вшивость
 function fun(echo) {
     console.log(echo);
 }
@@ -185,3 +195,72 @@ function echoMaker() {
 }
 let bigFun = echoMaker();
 bigFun("Is there an echo?");
+
+//Возвращение ф-ций из ф-ций
+let passengers2 = [
+    {name: "Jane", paid: true, ticket: "coach"},
+    {name: "Evel", paid: true, ticket: "firstclass"},
+    {name: "Bro", paid: false, ticket: "firstclass"},
+    {name: "John", paid: true, ticket: "premium"}
+];
+
+function serveCustomer(passenger) {
+    let getDrinkOrderFunction = createDrinkOrder(passenger);
+    let getDinnerOrderFunction = createDinnerOrder(passenger);
+
+    getDrinkOrderFunction();
+
+    getDinnerOrderFunction();
+
+    getDrinkOrderFunction();
+    getDrinkOrderFunction();
+    //On movie
+    getDrinkOrderFunction();
+    //Забрать мусор
+}
+
+function createDrinkOrder(passenger) {
+    let orderFunction;
+
+    if (passenger.ticket === "firstclass") {
+        orderFunction = function () {
+            alert("Would you like a cocktail or wine?");
+        };
+    } else if (passenger.ticket === "premium") {
+        orderFunction = function () {
+            alert("Lemonade, water or wine?");
+        };
+    } else {
+        orderFunction = function () {
+            alert("Your choice is cola or water?");
+        };
+    }
+    return orderFunction;
+}
+
+function createDinnerOrder(passenger) {
+    let orderFunction;
+
+    if (passenger.ticket === "firstclass") {
+        orderFunction = function () {
+            alert("Would you like a chicken or pasta?");
+        };
+    } else if (passenger.ticket === "premium") {
+        orderFunction = function () {
+            alert("Snacks or cheese plate?");
+        };
+    } else {
+        orderFunction = function () {
+            alert("Your choice is nuts or fried bread?");
+        };
+    }
+    return orderFunction;
+}
+
+function servePassengers(passengers) {
+    for (let i = 0; i < passengers.length; i++) {
+        serveCustomer(passengers[i]);
+    }
+}
+
+servePassengers(passengers2);
