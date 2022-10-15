@@ -277,3 +277,64 @@ let products = [
     {name: "Water", calories: 0, color: "clear", sold: 62123}
 ];
 
+let numbersArray = [60, 50, 62, 58, 54, 54];
+
+function compareNumbers(num1, num2) {
+    return (num1 - num2);
+}
+
+numbersArray.sort(compareNumbers);
+console.log(numbersArray)
+
+function compareSold(colaA, colaB) {
+    return (colaA.sold - colaB.sold);
+}
+function compareName(colaA, colaB) {
+    if (colaA.name > colaB.name) {
+        return 1;
+    } else if (colaA.name === colaB.name) {
+        return 0;
+    } else {
+        return -1;
+    }
+}
+function compareCalories(colaA, colaB) {
+    return (colaA.calories - colaB.calories);
+}
+function compareColor(colaA, colaB) {
+    if (colaA.color > colaB.color) {
+        return 1;
+    } else if (colaA.color === colaB.color) {
+        return 0;
+    } else {
+        return -1;
+    }
+}
+function printProducts(products) {
+    for (let i = 0; i < products.length; i++) {
+        console.log("Name: " + products[i].name +
+            ", Calories: " + products[i].calories +
+            ", Color: " + products[i].color +
+            ", Sold: " + products[i].sold);
+    }
+}
+
+console.log("\n------- sorting by sold -------");
+products.sort(compareSold);
+console.log(products);
+printProducts(products);
+
+console.log("\n------- sorting by name -------");
+products.sort(compareName);
+console.log(products);
+printProducts(products);
+
+console.log("\n------- sorting by calories -------");
+products.sort(compareCalories);
+console.log(products);
+printProducts(products);
+
+console.log("\n------- sorting by color -------");
+products.sort(compareColor);
+console.log(products);
+printProducts(products);
